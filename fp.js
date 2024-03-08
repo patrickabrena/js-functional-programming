@@ -148,5 +148,73 @@ console.log(combinedWindow.tabs); // Output: ['Tab1', 'Tab2', 'Tab3', 'Tab4']
 
     */
   };
+
+  // When you open a new tab at the end
+  Window.prototype.tabOpen = function (tab) {
+    // Window.prototype.tabOpen = function(tab) : This lines adds a method named "tabOpen" to the prototype of the "Window" constructor. Like the previous "join" method, this means that ALL INSTANCES of "Window" objet will have access to this method
+    this.tabs.push("new tab"); // this is what displays in the array when neew tab is opened
+    // this.tabs.push("new tab") : Inside the "tabOpen" method, it uses the "push" method to add a new element (in this case "new tab") to the end of the "tabs" array of the current window "this.tabs"
+    return this;
+    //return this; : After opening a new tab, it returns the curreent window object "this". The code here allows for chaining, where you can perform multiple operations on a window object in a single chain
+    //
+    // SO, when I call the "tabOpen" method on a window object, it adds a new tab to the end of the tabs array, and the modified window objecet is returned.
+    // Example below
+    /*
+    const myWindow = new Window(['Tab1', 'Tab2']);
+myWindow.tabOpen();
+console.log(myWindow.tabs); // Output: ['Tab1', 'Tab2', 'new tab']
+
+    */
+  };
+
+  // When you close a tab
+  Window.prototype.tabClose = function (index) {
+    // the param "index" is the index that we want to close
+    // Only change code below this line
+    //
+    /*** REMEMBER THE DIFFERENCE BETWEEN SLICE AND SPLICE***/
+    /*
+    1. "slice" method
+      - "slice(start, end)" returns a shallow copy of a portion of the array from "start" to "end", where start is inclusive and "end" is exclusive
+    2. "splice" method
+      - "splice" // continue look at gpt about difference in splice and slice
+      
+    */
+    //
+    // const tabsBeforeIndex = this.tabs.splice(0, index); //
+    const tabsBeforeIndex = this.tabs.slice(0, index); // Get the tabs before the tab
+    // const tabsAfterIndex = this.tabs.splice(index + 1); //
+    const tabsAfterIndex = this.tabs.slice(index + 1); // Get the tabs after the tab
+
+    this.tabs = tabsBeforeIndex.concat(tabsAfterIndex); // Join them together
+
+    // Only change code above this line
+
+    return this;
+  };
+
+  // Let's create three browser windows
+  const workWindow = new Window([
+    "GMail",
+    "Inbox",
+    "Work mail",
+    "Docs",
+    "freeCodeCamp",
+  ]); // Your mailbox, drive, and other work sites
+  const socialWindow = new Window([
+    "FB",
+    "Gitter",
+    "Reddit",
+    "Twitter",
+    "Medium",
+  ]); // Social sites
+  const videoWindow = new Window(["Netflix", "YouTube", "Vimeo", "Vine"]); // Entertainment sites
+
+  // Now perform the tab opening, closing, and other operations
+  const finalTabs = socialWindow
+    .tabOpen() // Open a new tab for cat memes
+    .join(videoWindow.tabClose(2)) // Close third tab in video window, and join
+    .join(workWindow.tabClose(1).tabOpen());
+  console.log(finalTabs.tabs);
 };
 UNDERSTAND_THE_HAZARDS_OF_USING_IMPERATIVE_CODE();
