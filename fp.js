@@ -175,12 +175,34 @@ console.log(myWindow.tabs); // Output: ['Tab1', 'Tab2', 'new tab']
     /*** REMEMBER THE DIFFERENCE BETWEEN SLICE AND SPLICE***/
     /*
     1. "slice" method
-      - "slice(start, end)" returns a shallow copy of a portion of the array from "start" to "end", where start is inclusive and "end" is exclusive
+      - "slice(start, end)" 
+      - returns a shallow copy of a portion of the array from "start" to "end", where start is inclusive and "end" is exclusive
     2. "splice" method
-      - "splice" // continue look at gpt about difference in splice and slice
+      - "splice(start, numberOfIndexesToDelete, elementsToAddIfAnyStartingAtInsertion)
+      const CONTAINED_EXAMPLE = () => {
+      const numbers = [10, 11, 12, 12, 15];
+      const startIndex = 3;
+      const amountToDelete = 1;
+
+      numbers.splice(startIndex, amountToDelete, 13, 14);
+      //will remove that second 12 and add 13, and 14 to the array
+      console.log(numbers);
+      - modifies the original array by removing or replacing existing elements and/or adding new elements stasrting from the specified "start" index
+  };
       
     */
     //
+    /* THE REASON WHY SLICE AND NOT SPLICE */
+    /*
+    In the contexxt of my codee, for closing a tab, using "slice" is appropriate because I want to create a new array that represents the tabs before and after the specified index without modifying the original array.
+
+    I want to extract the tabs before and after the specified index without altering "this.tabs."
+    "slice" is used here to achieve this without modifiying the original array
+
+    If I were to use splice in this context, it would modify the original array, which might lead to unexpected behaviour and could potentially impact other parts of your application that reely on the state of the original array
+
+    In summary, "slice" is appropriate when you want to createe a new array without modifying the original 
+    */
     // const tabsBeforeIndex = this.tabs.splice(0, index); //
     const tabsBeforeIndex = this.tabs.slice(0, index); // Get the tabs before the tab
     // const tabsAfterIndex = this.tabs.splice(index + 1); //
