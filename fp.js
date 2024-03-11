@@ -240,3 +240,9 @@ console.log(myWindow.tabs); // Output: ['Tab1', 'Tab2', 'new tab']
   console.log(finalTabs.tabs);
 };
 UNDERSTAND_THE_HAZARDS_OF_USING_IMPERATIVE_CODE();
+
+const AVOID_MUTATIONS_AND_SIDE_EFFECTS_USING_FUNCTIONAL_PROGRAMMING = () => {
+  // The problem with the last challenge was that the original splice call in the tabClose() function cahnges the original array so the second call to is uses a modified array and gave unexpected results
+  // That right there was a small example of aa larger pattern - you call a function on a variable, array, or an object, and the function changes the variable or something in the object.
+};
+AVOID_MUTATIONS_AND_SIDE_EFFECTS_USING_FUNCTIONAL_PROGRAMMING();
