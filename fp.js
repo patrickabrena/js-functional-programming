@@ -308,4 +308,90 @@ function incrementer() {
   }
   console.log(incrementer(fixedValue));
 };
-PASS_ARUGMENTS_TO_AVOID_EXTERNAL_DEPENDENCE_IN_A_FUNCTION();
+// PASS_ARUGMENTS_TO_AVOID_EXTERNAL_DEPENDENCE_IN_A_FUNCTION();
+
+const REFACTOR_GLOBAL_VARIABLEES_OUT_OF_FUNCTIONS = () => {
+  // So far, we have seen two distinct pricinciples for functional programming
+  // 1. DON"T ALTER A VARIABLE OR OBJECT - creaate new variables and objects and return them if need be from a function. HINT: using something like const newArr = arrVar where arrVar is an array will simple create a refeereence to the existing variable and NOT A COPY. so changing thee value in newArr WILL CHANGE the value in arrVar
+  // 2. Declare function parameters - any computation insde a function depends only on the arguments passeed to the function, and not on any global object or variable
+  /*****/
+  // Rewrite theh code so the global array bookList is not changed insde, either function. The add function should add the giveen bookName to the end of the array passed to it and return a new array (list). The remove function should removve the given boookName from the array passed to it.
+  // Note: Borth functino should return an array, and any new paramters should be added before the bookName parameter
+  /*
+  // The global variable
+const bookList = ["The Hound of the Baskervilles", "On The Electrodynamics of Moving Bodies", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae"];
+
+// Change code below this line
+function add(bookName) {
+
+  bookList.push(bookName);
+  return bookList;
+  
+  // Change code above this line
+}
+
+// Change code below this line
+function remove(bookName) {
+  const book_index = bookList.indexOf(bookName);
+  if (book_index >= 0) {
+
+    bookList.splice(book_index, 1);
+    return bookList;
+
+    // Change code above this line
+    }
+}
+  */
+  // The global variable
+  const bookList = [
+    "The Hound of the Baskervilles",
+    "On The Electrodynamics of Moving Bodies",
+    "Philosophiæ Naturalis Principia Mathematica",
+    "Disquisitiones Arithmeticae",
+  ];
+
+  // Change code below this line
+  // create param to take in bookList as an argument
+  function add(someList, bookName) {
+    // create a copyy of the bookList using slice since it returns a shallow copy of the array and doeesn't modify the original
+    // first need to init a new bookList
+    // create a var lastIndex to use as a param for the slice method on bookList NOTE: have to use .length and not .length - 1 because second param in slice is NOT inclusive
+    let lastIndex = someList[someList.length];
+    console.log(lastIndex); // will console undefined because bookList[4] doesn't exist
+    let addToBookList = someList.slice(0, lastIndex);
+    // console.log(addToBookList);
+    /* above will console
+    [
+  'The Hound of the Baskervilles',
+  'On The Electrodynamics of Moving Bodies',
+  'Philosophiæ Naturalis Principia Mathematica',
+  'Disquisitiones Arithmeticae'
+]
+
+Above is a perfect copy of the original bookList arr
+    */
+    addToBookList.push(bookName);
+    return addToBookList;
+
+    // Change code above this line
+  }
+  console.log(add(bookList, "Harry Potter"));
+  // Change code below this line
+  // create param to take in bookList as an argument
+  function remove(someList, bookName) {
+    // init variablee to make another copy of BookList and call it removeFromBookList and also copy lastIndex var into this function scope
+    let lastIndex = someList[someList.length];
+    let removeFromBookList = someList.slice(0, lastIndex);
+    const book_index = removeFromBookList.indexOf(bookName); // indeexOf will reeturn -1 if the name of the book doesn't exist in the array
+    console.log(removeFromBookList.indexOf("The Hound of the Baskervilles")); // returns 0 because that's the index of that book title that was called with the indexOf method
+    if (book_index >= 0) {
+      removeFromBookList.splice(book_index, 1);
+      //above uses the splice method to delete the title of the book from the removeFromBookList array
+      return removeFromBookList;
+
+      // Change code above this line
+    }
+  }
+  console.log(remove(bookList, "Disquisitiones Arithmeticae"));
+};
+// REFACTOR_GLOBAL_VARIABLEES_OUT_OF_FUNCTIONS();
