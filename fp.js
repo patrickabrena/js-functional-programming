@@ -239,10 +239,73 @@ console.log(myWindow.tabs); // Output: ['Tab1', 'Tab2', 'new tab']
     .join(workWindow.tabClose(1).tabOpen());
   console.log(finalTabs.tabs);
 };
-UNDERSTAND_THE_HAZARDS_OF_USING_IMPERATIVE_CODE();
+// UNDERSTAND_THE_HAZARDS_OF_USING_IMPERATIVE_CODE();
 
 const AVOID_MUTATIONS_AND_SIDE_EFFECTS_USING_FUNCTIONAL_PROGRAMMING = () => {
   // The problem with the last challenge was that the original splice call in the tabClose() function cahnges the original array so the second call to is uses a modified array and gave unexpected results
   // That right there was a small example of aa larger pattern - you call a function on a variable, array, or an object, and the function changes the variable or something in the object.
+  // Oonne of thee core principles of functional programming is to NOT change things. Changes lead to bugs. It's easier to prevent bugs knowing tha tyour functions don't change anything, including the function arguments or any global variable.
+  // The previous example didin't havee any complicateed operations but the splice method changed the original array, and resulted in a bug.
+  // Recall that in funnctional prgramming, changing or altering things is called MUTATION, and the outcome is called a SIDE EFFECT.
+  // A function, ideally, should be a pure function, meaning that it does not cause any side effects.
+  // Let's try to master this discipline and NOT alter any variable or object in our code.
+  /*****/
+  // Fill in the code for the function incrementer so it returns the value of the global variable fixedValue increased by one
+
+  // The global variable
+  /*let fixedValue = 4;
+
+  function incrementer() {
+    // Only change code below this line
+    // Only change code above this line
+  }
+  */
+  // The global variable
+  let fixedValue = 4;
+
+  function incrementer() {
+    // Only change code below this line
+    let test = fixedValue + 1;
+
+    return test;
+
+    // Only change code above this line
+  }
+  // console.log(incrementer());
 };
-AVOID_MUTATIONS_AND_SIDE_EFFECTS_USING_FUNCTIONAL_PROGRAMMING();
+// AVOID_MUTATIONS_AND_SIDE_EFFECTS_USING_FUNCTIONAL_PROGRAMMING();
+
+const PASS_ARUGMENTS_TO_AVOID_EXTERNAL_DEPENDENCE_IN_A_FUNCTION = () => {
+  // The last challenege was a step closer to functional programming principles, but there is still something missing.
+  // We didn't alteer the global variable value, but the function incrementer would not work without the global vaariable fixedValue being there.
+  // Another pricincple of functional programming is to delcare your dependencies explicitly. This means if a function depends on a variable or object being present, then pass that variable or object directly into the function as an argument.
+  // There are several good consequences from this principle. The function is easier to test, you know exactly what input it takes, and it won't depend on anything else in your program
+  // This can give you more confidence when you alter, remove, or add new code. You would know what you can or cannot changee and you can see where the potential traps are.
+  // Finally, the function would always produce the same outp[ut fro the same set of inputs, no matter what part of the code executes it.
+  /*****/
+  // Let's update the incrementer function to clearly deeclare its dependencies
+  // Write the increementeer function so it takes an argument, aand then returns a result after increasing the vaalue by one
+  /*
+  // The global variable
+let fixedValue = 4;
+
+// Only change code below this line
+function incrementer() {
+
+
+  // Only change code above this line
+}
+  */
+  // The global variable
+  let fixedValue = 4;
+
+  // Only change code below this line
+  function incrementer(someVal) {
+    let answer = someVal + 1;
+    console.log(answer);
+    return answer;
+    // Only change code above this line
+  }
+  console.log(incrementer(fixedValue));
+};
+PASS_ARUGMENTS_TO_AVOID_EXTERNAL_DEPENDENCE_IN_A_FUNCTION();
