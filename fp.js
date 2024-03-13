@@ -395,3 +395,176 @@ Above is a perfect copy of the original bookList arr
   console.log(remove(bookList, "Disquisitiones Arithmeticae"));
 };
 // REFACTOR_GLOBAL_VARIABLEES_OUT_OF_FUNCTIONS();
+
+const USE_THE_MAP_METHOD_TO_EXTRACT_DATA_FROM_AN_ARRAY = () => {
+  // So far we have learned to use pure function to avoide side effects in a program. Also, we have seen the value in having a function only depend on its input arguments
+  //
+  // This is only the beginning!
+  //
+  // It would make sense to be able to pass them as arguments to other functions, and return a function from another function. Functions are considered FIRST CLASS OBJECTS in Javascript, which means they can be used like any other object. They can be saved in variables, stored in an objet, or passed as function arguments.
+  //
+  // Let's start with some simple array functions, which are methods on the array object prototype. In this exercise we are looking at Array.prototype.map() or more simply, map
+  //
+  // The map method iterates over each item in an array and returns a new array containing the results of calling thee callback functioni on each element. It does this without mutating the original array
+  //
+  // When the callback is used, it is passed three arguments. The first argument is the current element being processed. The scond is the index of that elemnt and the thrid is the array upong which the map method wass called
+  //
+  // See below for an exxammple using the map method on the users array to return a new arary containing only the names of the uses aas elements. For simplicity, the ehexample only uses the first arguemnte of the callback
+
+  const EX = () => {
+    //
+    const users = [
+      { name: "John", age: 34 },
+      { name: "Amy", age: 20 },
+      { name: "camperCat", age: 10 },
+    ];
+    // code below uses the map meethod on the "users" array. The map method creeatees a new array by callinga  provided function on each element of the original array
+    //
+    // In thiis casee, the provided function is an arrow function "user => user.name". This function takes each objects from the "users" aarray and reeturns only thee "name" property of that object. So, "names" will be an array containing only thee names of the users from the "users" array
+    const names = users.map((user) => user.name);
+    // console.log(names);
+    //above will log [ 'John', 'Amy', 'camperCat' ]
+  };
+  EX();
+  /******/
+  //
+  // The watchList array holds objets with information on several movies. Use map on watchList to assign a new array of objects to the ratings variable. EEach movie in the new array should have only a title key with the name of the film
+  //
+  // The global variable
+  const watchList = [
+    {
+      Title: "Inception",
+      Year: "2010",
+      Rated: "PG-13",
+      Released: "16 Jul 2010",
+      Runtime: "148 min",
+      Genre: "Action, Adventure, Crime",
+      Director: "Christopher Nolan",
+      Writer: "Christopher Nolan",
+      Actors: "Leonardo DiCaprio, Joseph Gordon-Levitt, Elliot Page, Tom Hardy",
+      Plot: "A thief, who steals corporate secrets through use of dream-sharing technology, is given the inverse task of planting an idea into the mind of a CEO.",
+      Language: "English, Japanese, French",
+      Country: "USA, UK",
+      Awards: "Won 4 Oscars. Another 143 wins & 198 nominations.",
+      Poster:
+        "http://ia.media-imdb.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
+      Metascore: "74",
+      imdbRating: "8.8",
+      imdbVotes: "1,446,708",
+      imdbID: "tt1375666",
+      Type: "movie",
+      Response: "True",
+    },
+    {
+      Title: "Interstellar",
+      Year: "2014",
+      Rated: "PG-13",
+      Released: "07 Nov 2014",
+      Runtime: "169 min",
+      Genre: "Adventure, Drama, Sci-Fi",
+      Director: "Christopher Nolan",
+      Writer: "Jonathan Nolan, Christopher Nolan",
+      Actors: "Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow",
+      Plot: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+      Language: "English",
+      Country: "USA, UK",
+      Awards: "Won 1 Oscar. Another 39 wins & 132 nominations.",
+      Poster:
+        "http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg",
+      Metascore: "74",
+      imdbRating: "8.6",
+      imdbVotes: "910,366",
+      imdbID: "tt0816692",
+      Type: "movie",
+      Response: "True",
+    },
+    {
+      Title: "The Dark Knight",
+      Year: "2008",
+      Rated: "PG-13",
+      Released: "18 Jul 2008",
+      Runtime: "152 min",
+      Genre: "Action, Adventure, Crime",
+      Director: "Christopher Nolan",
+      Writer:
+        "Jonathan Nolan (screenplay), Christopher Nolan (screenplay), Christopher Nolan (story), David S. Goyer (story), Bob Kane (characters)",
+      Actors: "Christian Bale, Heath Ledger, Aaron Eckhart, Michael Caine",
+      Plot: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, the caped crusader must come to terms with one of the greatest psychological tests of his ability to fight injustice.",
+      Language: "English, Mandarin",
+      Country: "USA, UK",
+      Awards: "Won 2 Oscars. Another 146 wins & 142 nominations.",
+      Poster:
+        "http://ia.media-imdb.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SX300.jpg",
+      Metascore: "82",
+      imdbRating: "9.0",
+      imdbVotes: "1,652,832",
+      imdbID: "tt0468569",
+      Type: "movie",
+      Response: "True",
+    },
+    {
+      Title: "Batman Begins",
+      Year: "2005",
+      Rated: "PG-13",
+      Released: "15 Jun 2005",
+      Runtime: "140 min",
+      Genre: "Action, Adventure",
+      Director: "Christopher Nolan",
+      Writer:
+        "Bob Kane (characters), David S. Goyer (story), Christopher Nolan (screenplay), David S. Goyer (screenplay)",
+      Actors: "Christian Bale, Michael Caine, Liam Neeson, Katie Holmes",
+      Plot: "After training with his mentor, Batman begins his fight to free crime-ridden Gotham City from the corruption that Scarecrow and the League of Shadows have cast upon it.",
+      Language: "English, Urdu, Mandarin",
+      Country: "USA, UK",
+      Awards: "Nominated for 1 Oscar. Another 15 wins & 66 nominations.",
+      Poster:
+        "http://ia.media-imdb.com/images/M/MV5BNTM3OTc0MzM2OV5BMl5BanBnXkFtZTYwNzUwMTI3._V1_SX300.jpg",
+      Metascore: "70",
+      imdbRating: "8.3",
+      imdbVotes: "972,584",
+      imdbID: "tt0372784",
+      Type: "movie",
+      Response: "True",
+    },
+    {
+      Title: "Avatar",
+      Year: "2009",
+      Rated: "PG-13",
+      Released: "18 Dec 2009",
+      Runtime: "162 min",
+      Genre: "Action, Adventure, Fantasy",
+      Director: "James Cameron",
+      Writer: "James Cameron",
+      Actors: "Sam Worthington, Zoe Saldana, Sigourney Weaver, Stephen Lang",
+      Plot: "A paraplegic marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.",
+      Language: "English, Spanish",
+      Country: "USA, UK",
+      Awards: "Won 3 Oscars. Another 80 wins & 121 nominations.",
+      Poster:
+        "http://ia.media-imdb.com/images/M/MV5BMTYwOTEwNjAzMl5BMl5BanBnXkFtZTcwODc5MTUwMw@@._V1_SX300.jpg",
+      Metascore: "83",
+      imdbRating: "7.9",
+      imdbVotes: "876,575",
+      imdbID: "tt0499549",
+      Type: "movie",
+      Response: "True",
+    },
+  ];
+
+  // Only change code below this line
+
+  // const ratings = [];
+  // for (let i = 0; i < watchList.length; i++) {
+  //   ratings.push({title: watchList[i]["Title"], rating: watchList[i]["imdbRating"]});
+  // }
+
+  const ratings = watchList.map((item) => ({
+    // item param is each object in the array and the values to the keys "title", and "rating" are accessed using bracket notation to get that property of each object(item)
+    title: item["Title"],
+    rating: item["imdbRating"],
+  }));
+  // Only change code above this line
+
+  console.log(JSON.stringify(ratings));
+};
+// USE_THE_MAP_METHOD_TO_EXTRACT_DATA_FROM_AN_ARRAY();
