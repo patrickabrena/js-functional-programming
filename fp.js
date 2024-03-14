@@ -619,7 +619,7 @@ const IMPLEMENT_MAP_ON_A_PROTOTYPE = () => {
   );
   console.log(doubled, frontToBack);
 };
-// IMPLEMENT_MAP_ON_A_PROTOTYPE();
+IMPLEMENT_MAP_ON_A_PROTOTYPE();
 
 const USE_THE_FILTER_METHOD_TO_EXTRACT_DATA_FROM_AN_ARRAY = () => {
   // ANother useful array function is "Array.prototype.filter()" or just "filter()"
@@ -787,4 +787,136 @@ const USE_THE_FILTER_METHOD_TO_EXTRACT_DATA_FROM_AN_ARRAY = () => {
   };
   EX();
 };
-USE_THE_FILTER_METHOD_TO_EXTRACT_DATA_FROM_AN_ARRAY();
+// USE_THE_FILTER_METHOD_TO_EXTRACT_DATA_FROM_AN_ARRAY();
+
+const IMPLEMENT_THE_FILTER_METHOD_ON_A_PROTOTYPE = () => {
+  // Write your own Array.prototype.myFilter, which should behave exactly like Array.prototype.filter().
+  // You should not use the built-in filter method. The "Array" instance can be accessed in the myFIlter method using "this" keyword
+  /******/
+  //
+  /*
+  Array.prototype.myFilter = function(callback) {
+  const newArray = [];
+  // Only change code below this line
+
+  // Only change code above this line
+  return newArray;
+};
+  */
+  Array.prototype.myFilter = function (callback) {
+    const newArray = [];
+    // Only change code below this line
+    //
+    // going to set this up like the the myMap method that I made in one of the previous examples
+    //
+    // make a for loop and include "this" keyword
+    // also REMEMBER:
+    // Parameters IN ORDER
+    // element - the current element being processed in the array
+    // index - the index of the current element being processed in the array
+    // array - the array "filter()" was called upon
+    //
+    // start by making a for loop
+    for (let i = 0; i < this.length; i++) {
+      // create if statement to run the callback function
+      if (callback(this[i], i, this)) {
+        // this[index] - element
+        // index - index
+        // this - this
+        newArray.push(this[i]); // if the "if" statement is satisfied then it will push that current element (this[i]) into newArray and will return new array
+      }
+    }
+    // Only change code above this line
+    return newArray;
+  };
+  console.log([23, 65, 98, 5, 13].myFilter((item) => item % 2)); // item modular 2 sees which elements are divisible by 2
+};
+// IMPLEMENT_THE_FILTER_METHOD_ON_A_PROTOTYPE();
+
+const RETURN_PART_OF_AN_ARRAY_USING_THE_SLICE_METHOD = () => {
+  // The slice method returns a copy of certain elements of an array. It can take two arguments, the first gives the index of where to begin the SLICE, the second is the index from where to end the slice (and it's non-inclusive).
+  //
+  // If the arguments are not provided, the default is to start at the beginning of the array through the end, which is an easy way to make a copy of the entire array
+
+  const EX = () => {
+    //
+    const arr = ["Cat", "Dog", "Tiger", "Zebra"];
+    const newArray = arr.slice(1, 3); // will log ["Dog", "Tiger"]
+  };
+  EX();
+  /******/
+  //
+  // Use the SLICE method in the sliceArray function to return part of the "anim" array given the provded "beginSlice" and "endSlice" indices. The function shoudl return an array
+  //
+  /*
+  function sliceArray(anim, beginSlice, endSlice) {
+  // Only change code below this line
+
+
+  // Only change code above this line
+}
+
+const inputAnim = ["Cat", "Dog", "Tiger", "Zebra", "Ant"];
+sliceArray(inputAnim, 1, 3);
+  */
+  function sliceArray(anim, beginSlice, endSlice) {
+    // Only change code below this line
+    let theSLice = anim.slice(beginSlice, endSlice);
+    return theSLice;
+    // Only change code above this line
+  }
+
+  const inputAnim = ["Cat", "Dog", "Tiger", "Zebra", "Ant"];
+  let display = sliceArray(inputAnim, 1, 3);
+  console.log(display);
+};
+// RETURN_PART_OF_AN_ARRAY_USING_THE_SLICE_METHOD();
+
+const REMOVE_ELEMENTS_FROM_AN_ARRAY_USING_SLICE_INSTEAD_OF_SPLICE = () => {
+  // A common pattern while working with arrays, is when you want to remove items and keep the rest of the array.
+  //
+  // Javascript offers the "splice" method for this, which takes arguments for the index of where to start removing items, then the numbere of items to remove. If the seonc dargument is not provided, the default is to remove items through the end. Howeveer, the "splice" method MUTATES THE ORIGINAL array it is called on.
+  const EX = () => {
+    const cities = ["Chicago", "Delhi", "Islamabad", "London", "Berlin"];
+    cities.splice(3, 1); // will log ["Chicago", "Delhi", "Islamabad", "Berlin"].
+  };
+  EX();
+  //
+  // As we saw in the last challenege, the "slice" method DOES NOT mutate the original array, but it returns a new one which can be saved into a variable. Recall "slice" method takes two arguments for the indices to begin and end also end the slice. (end is non-inclusive). It will return tthose items in a new array.
+  // Using "slice" method instead of "splice" help to avoid any array-mutating side effects.
+  /******/
+  //Rewrite the function "nonMutatingSplice" by using SLICE instead of splice.
+  //It should limit the provided "cities" array to length of 3, and return a new array with only the first 3 iitems
+  //
+  //Do not mutate the original array provided to the function.
+  /*
+  function nonMutatingSplice(cities) {
+
+  return cities.splice(3);
+}
+  */
+  function nonMutatingSplice(cities) {
+    return cities.slice(0, 3);
+  }
+};
+// REMOVE_ELEMENTS_FROM_AN_ARRAY_USING_SLICE_INSTEAD_OF_SPLICE();
+
+const COMBINE_TWO_ARRAYS_USING_THE_CONCAT_METHOD = () => {
+  // Use concat method in ithe "nonMutatingConcat" functiion to concatenate "attach" to the end of "original". The function shoould return the concatenated array.
+  function nonMutatingConcat(original, attach) {
+    // Only change code below this line
+    return original.concat(attach);
+
+    // Only change code above this line
+  }
+
+  const first = [1, 2, 3];
+  const second = [4, 5];
+  let ans = nonMutatingConcat(first, second);
+  console.log(ans);
+};
+// COMBINE_TWO_ARRAYS_USING_THE_CONCAT_METHOD();
+
+const ADD_ELEMENTS_TO_THE_EENDOF_AN_ARRAY_USING_CONCAT_INSTEAD_OF_PUSH = () => {
+  //
+};
