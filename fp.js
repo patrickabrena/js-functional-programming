@@ -619,7 +619,7 @@ const IMPLEMENT_MAP_ON_A_PROTOTYPE = () => {
   );
   console.log(doubled, frontToBack);
 };
-IMPLEMENT_MAP_ON_A_PROTOTYPE();
+// IMPLEMENT_MAP_ON_A_PROTOTYPE();
 
 const USE_THE_FILTER_METHOD_TO_EXTRACT_DATA_FROM_AN_ARRAY = () => {
   // ANother useful array function is "Array.prototype.filter()" or just "filter()"
@@ -918,5 +918,57 @@ const COMBINE_TWO_ARRAYS_USING_THE_CONCAT_METHOD = () => {
 // COMBINE_TWO_ARRAYS_USING_THE_CONCAT_METHOD();
 
 const ADD_ELEMENTS_TO_THE_EENDOF_AN_ARRAY_USING_CONCAT_INSTEAD_OF_PUSH = () => {
+  // Functional programming is all about creating andn nusing non-mutating functions
   //
+  // THe last challenege introduced the "concat" method as a way to merge arrays intoa new array without mutating the original arrays. Compare "concat" to the "push" method. "push" adds items to the end of thhe same array iit is called on, which mutates the array. Here's an example below
+  //
+  const ex = () => {
+    const arr = [1, 2, 3];
+    arr.push(4, 5, 6);
+  };
+  ex();
+  // "arr" would have a modified value of [1, 2, 3, 4, 5, 6], which is NOT the functional programming way.
+  //
+  // "concat" offers a way to merge new items to the end of an array without any mutating side effects
+  /*****/
+  //
+  // Change the "nonMutatingPush" function so it uses "concat" to merge "newItem" to the end of "original" without mutating "original" or "newItem" arrays. The function should return an array.
+  /*
+  function nonMutatingPush(original, newItem) {
+  // Only change code below this line
+  return original.push(newItem);
+
+  // Only change code above this line
+}
+
+const first = [1, 2, 3];
+const second = [4, 5];
+nonMutatingPush(first, second);
+  */
+  function nonMutatingPush(original, newItem) {
+    // Only change code below this line
+    return first.concat(second);
+
+    // Only change code above this line
+  }
+
+  const first = [1, 2, 3];
+  const second = [4, 5];
+  let ans = nonMutatingPush(first, second);
+  console.log(ans);
 };
+// ADD_ELEMENTS_TO_THE_EENDOF_AN_ARRAY_USING_CONCAT_INSTEAD_OF_PUSH();
+
+const USE_REDUCE_METHOD_TO_ANALYZE_DATA = () => {
+  // "Array.prototype.reduce()" or simple "reduce" is the most general of all array operations in Javascript. You can solve almost any array processing problem using the "reduce" method.
+  //
+  // The "reduce" method allows for more general lforms or array processsing, and it's possible to show that both "filter" and "map" can be derived as special applications of "reduce".
+  // The "reduce" method iterates over each item in an array and returns a single value (string, number, object, array). This is acheieved via a callback function that is called on eache iteration.
+  //
+  // The callback functionn accepts 4 args.
+  // FIRST : ACCUMULATOR -- ggets assigned the return value of the callback functioin from the previous iteration
+  // SECOND : CURRENT ELEMENT BEING PROCESSED
+  // THIRD : INDEX OF THAT CURRENT ELEMENT
+  // FOURTH : THE ARRAY THAT REDUCE IS CALLED UPON
+};
+USE_REDUCE_METHOD_TO_ANALYZE_DATA();
